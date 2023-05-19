@@ -1,7 +1,7 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 // import './App.css';
 import * as React from 'react'
-import CategoryFilter from './categoryFilter';
+import CategoryFilter from './CategoryFilter';
 
 // 1. import `ChakraProvider` component
 import { ChakraProvider } from '@chakra-ui/react'
@@ -10,7 +10,7 @@ function App() {
   // 2. Wrap ChakraProvider at the root of your app
   return (
     <ChakraProvider>
-        <CategoryFilter/>
+        <CategoryFilter />
     </ChakraProvider>
   )
 }
