@@ -2,6 +2,7 @@
 // import './App.css';
 import * as React from 'react'
 import CategoryFilter from './CategoryFilter';
+import CountryFilter from './CountryFilter';
 
 // 1. import `ChakraProvider` component
 import { ChakraProvider } from '@chakra-ui/react'
@@ -11,6 +12,7 @@ function App() {
   return (
     <ChakraProvider>
         <CategoryFilter />
+        <CountryFilter />
     </ChakraProvider>
   )
 }
