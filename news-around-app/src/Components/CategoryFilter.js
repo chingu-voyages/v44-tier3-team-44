@@ -10,9 +10,9 @@ import {
 
 function CategoryFilter () {            
   return (
-    <Menu>
-      <MenuButton as={Button}>
-        Search
+    <Menu >
+      <MenuButton as={Button} color='#4961FF'>
+        Category Search
       </MenuButton>
       <MenuList>
         <MenuItem>Business</MenuItem>

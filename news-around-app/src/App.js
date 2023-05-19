@@ -1,33 +1,28 @@
-// import logo from './logo.svg';
-// import './App.css';
+import './App.css';
+import {Box, Image, HStack, Heading} from '@chakra-ui/react'
 import * as React from 'react'
-import CategoryFilter from './CategoryFilter';
-import CountryFilter from './CountryFilter';
-
-// 1. import `ChakraProvider` component
-import { ChakraProvider } from '@chakra-ui/react'
+import CountryFilter from './Components/CountryFilter';
+import CategoryFilter from './Components/CategoryFilter';
+import NewsArticle from './Components/NewsArticle';
 
 function App() {
-  // 2. Wrap ChakraProvider at the root of your app
-  return (
-    <ChakraProvider>
+
+  return (<>
+      <HStack ml='250px' spacing='24px'>
+        <Box >
+          <Image src="https://i.gifer.com/69QH.gif"
+          boxSize='200px'
+          >
+          </Image>
+            </Box>
+            <Heading color='#4961FF' fontWeight='bold'>What Happens</Heading>
         <CategoryFilter />
         <CountryFilter />
-    </ChakraProvider>
+        </HStack>
+        <NewsArticle/>
+
+</>
   )
 }
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Welcome to the News Around app!
-//         </p>
-//       </header>
-//     </div>
-//   );
-// }
 
 export default App;

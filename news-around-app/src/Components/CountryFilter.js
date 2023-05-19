@@ -11,8 +11,8 @@ import {
 function CountryFilter () {            
   return (
     <Menu>
-      <MenuButton as={Button}>
-        Search
+      <MenuButton as={Button} color='#4961FF'>
+        Country Search
       </MenuButton>
       <MenuList>
         <MenuItem>United Arab Emirates</MenuItem>
