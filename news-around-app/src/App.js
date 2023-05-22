@@ -1,7 +1,80 @@
+import { React, useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+  const [allArticles, setAllArticles] = useState([]); // set allArticles as an empty array by default
+
+  const getHeadlines = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/headlines');
+      // save all data from from backend server retrieved from News API
+      const data = await response.json();
+      // save all the article objects into articleData
+      const articleData = data.articles;
+      // use the setAllArticle function to save each article object in allArticles
+      setAllArticles(Object.values(articleData));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getHeadlines();
+  },[]); // use the useEffect hook to call the getHeadlines function when React App renders
+
+
+  // use a for loop to print out each articles title/source/author etc
+  // checked description, urlToImage and content properties, does not retrieve anything
+
+  // store each article's data in an array where each article is stored in a dictionary
+  const allArticleData = []
+
+    for (let i = 0; i < allArticles.length; i++) {
+      let hyphenAmount = allArticles[i].title.split("-").length -1
+      let articleTitle = allArticles[i].title.split("-")[0]
+      let sourceCheck = ""
+      let author = allArticles[i].author
+      let newsSource = allArticles[i].source["Name"]
+      let url = allArticles[i].url
+      // clean publishDate property
+      let publishDate = allArticles[i].publishedAt.split("T")[0]      
+      // check title property for more than one hyphens
+      if (hyphenAmount > 1) {
+        // console.log("theres more than 1 hyphen")
+        sourceCheck = allArticles[i].title.split("-")[hyphenAmount]
+        articleTitle = allArticles[i].title.replace(sourceCheck, '')
+        // get the lastIndex of "-"
+        let lastHyphenIndex = articleTitle.lastIndexOf("-")
+        // use subString method to only save only up to the lastHyphen without the hyphen itself
+        articleTitle = articleTitle.substring(0, lastHyphenIndex)
+      }
+      // some article titles include | News Source or News Type, code below to get rid of it
+      if (articleTitle.includes("|")) {
+        articleTitle = articleTitle.split("|")[0]
+      }
+      // check author property
+      // clean up author when it is null or an empty string 
+      if (author === null || author === "") {
+        author = "N/A"
+      }
+      let articleData = {
+        title: articleTitle,
+        author: author,
+        source: newsSource,
+        url: url,
+        date: publishDate
+      };
+
+      allArticleData.push(articleData);
+  }
+
+  // check article data retrieved from newsapi
+  console.log(allArticles)
+  // check article data after data cleaning
+  console.log(allArticleData)
+
   return (
     <div className="App">
       <header className="App-header">
