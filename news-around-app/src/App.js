@@ -15,7 +15,7 @@ function App() {
           >
           </Image>
             </Box>
-            <Heading color='#4961FF' fontWeight='bold'>What Happens</Heading>
+            <Heading color='#0050C8' fontWeight='bold'>What Happens</Heading>
         <CategoryFilter />
         <CountryFilter />
         </HStack>

@@ -11,7 +11,7 @@ import {
 function CountryFilter () {            
   return (
     <Menu>
-      <MenuButton as={Button} color='#4961FF'>
+      <MenuButton as={Button} color='#0050C8'>
         Country Search
       </MenuButton>
       <MenuList>
