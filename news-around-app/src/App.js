@@ -4,6 +4,9 @@ import './App.css';
 
 function App() {
 
+  // this part is for the newsHeadline api endoint
+  // still need to find a way to send language to the backend from the frontend
+
   const [allArticles, setAllArticles] = useState([]); // set allArticles as an empty array by default
 
   const getHeadlines = async () => {
