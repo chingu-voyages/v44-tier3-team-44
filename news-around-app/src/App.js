@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     getHeadlines();
-  },[]); // use the useEffect hook to call the getHeadlines function when React App renders
+  },[]); // use the useEffect hook to call the getHeadlines function when App renders
 
 
   // use a for loop to print out each articles title/source/author etc
@@ -73,10 +73,34 @@ function App() {
       allArticleData.push(articleData);
   }
 
-  // check article data retrieved from newsapi
+  // check article data retrieved from headlines endpoint
   console.log(allArticles)
-  // check article data after data cleaning
+  // check article data after data clean up on headlines endpoint
   console.log(allArticleData)
+
+  // the code below is toe retrieve the source endpoint from NewsApi for the category filter
+
+  const [categoryArticles, setCategoryArticles] = useState([]); // set categoryArticles as an empty array by default
+
+  const getCategoryNews = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/category');
+      // save all data from from backend server retrieved from News API
+      const categoryData = await response.json();
+      // save all the article objects into articleData
+      const categoryArticleData = categoryData.sources;
+      // use the setAllArticle function to save each article object in allArticles
+      setCategoryArticles(Object.values(categoryArticleData));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getCategoryNews();
+  },[]); // use the useEffect hook to call the getCategoryNews function when App renders
+
+  console.log(categoryArticles)
 
   return (
     <div className="App">

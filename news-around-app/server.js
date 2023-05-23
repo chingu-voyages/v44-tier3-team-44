@@ -41,7 +41,21 @@ app.get('/headlines', async (req, res) => {
 });
 
 
-// To create Category filter route
+// Set up /category route to use source endpoint for category filter
+app.get('/category', async (req, res) => {
+  try {
+  const response = await newsapi.v2.sources ({
+    category: 'technology',
+  })
+  // Send the articles in the response
+  res.json(response);
+
+// catch any errors 
+} catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 //News Api node.js client library examples
 
