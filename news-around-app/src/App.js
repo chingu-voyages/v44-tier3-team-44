@@ -65,9 +65,9 @@ function App() {
       let articleData = {
         title: articleTitle,
         author: author,
-        source: newsSource,
-        url: url,
-        date: publishDate
+        source: newsSource, 
+        url: url, 
+        date: publishDate // 2023-05-16
       };
 
       allArticleData.push(articleData);
