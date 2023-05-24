@@ -1,31 +1,21 @@
 import React from "react";
-import {
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem
-} from '@chakra-ui/react'
 
+const CategoryFilter = ({ selectedCategory, setSelectedCategory }) => {
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value);
+  };
 
-function CategoryFilter () {            
   return (
-    <Menu >
-      <MenuButton as={Button} color='#0050C8'>
-        Category Search
-      </MenuButton>
-      <MenuList>
-        <MenuItem>Business</MenuItem>
-        <MenuItem>Entertainment</MenuItem>
-        <MenuItem>General</MenuItem>
-        <MenuItem>Health</MenuItem>
-        <MenuItem>Science</MenuItem>
-        <MenuItem>Sports</MenuItem>
-        <MenuItem>Technology</MenuItem>
-      </MenuList>
-    </Menu>
+    <select value={selectedCategory} onChange={handleCategoryChange}>
+      <option value="">All Categories</option>
+      <option value="business">Business</option>
+      <option value="entertainment">Entertainment</option>
+      <option value="health">Health</option>
+      <option value="science">Science</option>
+      <option value="sports">Sports</option>
+      <option value="technology">Technology</option>
+    </select>
   );
-
 };
 
 export default CategoryFilter;

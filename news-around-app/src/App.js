@@ -1,18 +1,20 @@
 
-import './App.css';
-import {Box, Image, HStack, Heading} from '@chakra-ui/react'
-import * as React from 'react'
-import {useState, useEffect} from 'react'
+import { Box, Image, HStack, Heading } from '@chakra-ui/react';
+import * as React from 'react';
+import { useState, useEffect } from 'react';
 import CountryFilter from './Components/CountryFilter';
 import CategoryFilter from './Components/CategoryFilter';
-import NewsArticle from './Components/NewsArticle';
+// import NewsArticle from "./Components/NewsArticle";
+import ArticleFeed from './Components/ArticleFeed';
+import './App.css';
 
 function App() {
   // this part is for the newsHeadline api endoint
   // still need to find a way to send language to the backend from the frontend
   // const [ language, setLanguage ] = useState(null);
- 
+
   const [allArticles, setAllArticles] = useState([]); // set allArticles as an empty array by default
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const getHeadlines = async () => {
     try {
@@ -73,8 +75,8 @@ function App() {
       let articleData = {
         title: articleTitle,
         author: author,
-        source: newsSource, 
-        url: url, 
+        source: newsSource,
+        url: url,
         date: publishDate // 2023-05-16
       };
 
@@ -112,22 +114,22 @@ function App() {
 
   return (
     <>
-      <HStack ml='250px' spacing='24px'>
-        <Box >
-          <Image src="https://i.gifer.com/69QH.gif"
-          boxSize='200px'
-          >
-          </Image>
-            </Box>
-            <Heading color='#0050C8' fontWeight='bold'>What Happens</Heading>
-        <CategoryFilter />
+      <HStack ml="250px" spacing="24px">
+        <Box>
+          <Image src="https://i.gifer.com/69QH.gif" boxSize="200px"></Image>
+        </Box>
+        <Heading color="#0050C8" fontWeight="bold">
+          What Happens
+        </Heading>
+        <CategoryFilter
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
         <CountryFilter />
-        </HStack>
-        <NewsArticle/>
-
-</>
+      </HStack>
+      <ArticleFeed selectedCategory={selectedCategory} />
+    </>
   );
 }
-
 
 export default App;
