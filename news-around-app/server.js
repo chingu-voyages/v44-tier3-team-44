@@ -44,8 +44,9 @@ app.get('/headlines', async (req, res) => {
 // Category filter
 app.get('/category', async (req, res) => {
   try {
+  const category = req.query.category || 'technology' // technology is selected if req.query.category does not work
   const response = await newsapi.v2.sources ({
-    category: 'technology',
+    category: category,
   })
   // Send the articles in the response
   res.json(response);

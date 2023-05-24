@@ -18,7 +18,6 @@ function App() {
     try {
       const language = 'en'
       const response = await fetch(`http://localhost:8000/headlines?language=${language}`);
-      
       // save all data from from backend server retrieved from News API
       const data = await response.json();
       console.log(data); // handle the response from the backend
@@ -84,32 +83,33 @@ function App() {
   // check article data retrieved from headlines endpoint
   // console.log(allArticles)
   // check article data after data clean up on headlines endpoint
-  console.log({allArticleData})
+  // console.log({allArticleData})
 
   // the code below is toe retrieve the source endpoint from NewsApi for the category filter
 
-  const [categoryArticles, setCategoryArticles] = useState([]); // set categoryArticles as an empty array by default
+  // const [categoryArticles, setCategoryArticles] = useState([]); // set categoryArticles as an empty array by default
 
-  const getCategoryNews = async () => {
-    try {
-      const response = await fetch('http://localhost:8000/category');
-      // save all data from from backend server retrieved from News API
-      const categoryData = await response.json();
-      // save all the article objects into articleData
-      const categoryArticleData = categoryData.sources;
-      // use the setAllArticle function to save each article object in allArticles
-      setCategoryArticles(Object.values(categoryArticleData));
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const getCategoryNews = async () => {
+  //   try {
+  //     const category = 'business'
+  //     const response = await fetch(`http://localhost:8000/category?category=${category}`);
+  //     // save all data from from backend server retrieved from News API
+  //     const categoryData = await response.json();
+  //     // save all the article objects into articleData
+  //     const categoryArticleData = categoryData.sources;
+  //     // use the setAllArticle function to save each article object in allArticles
+  //     setCategoryArticles(Object.values(categoryArticleData));
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getCategoryNews();
-  },[]); // use the useEffect hook to call the getCategoryNews function when App renders
+  // useEffect(() => {
+  //   getCategoryNews();
+  // },[]); // use the useEffect hook to call the getCategoryNews function when App renders
 
 
-  // console.log(categoryArticles)
+  // console.log({categoryArticles})
 
   return (
     <>
@@ -121,10 +121,10 @@ function App() {
           </Image>
             </Box>
             <Heading color='#0050C8' fontWeight='bold'>What Happens</Heading>
-        <CategoryFilter />
+        <CategoryFilter/>
         <CountryFilter />
         </HStack>
-        <NewsArticle/>
+        <NewsArticle title={allArticleData[0]?.title} author={allArticleData[0]?.author}/>
 
 </>
   );
