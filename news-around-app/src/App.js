@@ -82,9 +82,9 @@ function App() {
   }
 
   // check article data retrieved from headlines endpoint
-  console.log(allArticles)
+  // console.log(allArticles)
   // check article data after data clean up on headlines endpoint
-  console.log(allArticleData)
+  console.log({allArticleData})
 
   // the code below is toe retrieve the source endpoint from NewsApi for the category filter
 
@@ -108,7 +108,8 @@ function App() {
     getCategoryNews();
   },[]); // use the useEffect hook to call the getCategoryNews function when App renders
 
-  console.log(categoryArticles)
+
+  // console.log(categoryArticles)
 
   return (
     <>

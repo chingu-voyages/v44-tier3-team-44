@@ -27,7 +27,8 @@ app.get('/headlines', async (req, res) => {
     const language = req.query.language || 'fr' // retrieve from the body.language value set in the frontend , otherwise default to french
     const response = await newsapi.v2.topHeadlines ({
       // setting language to english for now - can let user choose later
-      language: language
+      language: language,
+      category: "technology"
   });
 
   // Send the articles in the response
