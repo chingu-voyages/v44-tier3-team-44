@@ -24,11 +24,11 @@ const newsapi = new NewsAPI(API_KEY);
 // Language filter
 app.get('/headlines', async (req, res) => {
   try {
-  const response = await newsapi.v2.topHeadlines ({
-    // setting language to english for now - can let user choose later
-    // probably use an dictionary method to retrieve the right value to put back into the API
-    language: 'en'
-  })
+    const language = req.query.language || 'fr' // retrieve from the body.language value set in the frontend , otherwise default to french
+    const response = await newsapi.v2.topHeadlines ({
+      // setting language to english for now - can let user choose later
+      language: language
+  });
 
   // Send the articles in the response
   res.json(response);
@@ -40,8 +40,7 @@ app.get('/headlines', async (req, res) => {
   }
 });
 
-
-// Set up /category route to use source endpoint for category filter
+// Category filter
 app.get('/category', async (req, res) => {
   try {
   const response = await newsapi.v2.sources ({
@@ -57,24 +56,23 @@ app.get('/category', async (req, res) => {
   }
 });
 
-//News Api node.js client library examples
 
-// newsapi.v2.topHeadlines({
-// //   sources: 'bbc-news,the-verge',
-// //   q: 'bitcoin',
-// //   category: 'business',
+// To query sources
+// All options are optional
+// newsapi.v2.sources({
+//   category: 'technology',
 //   language: 'en',
-// //   country: 'us'
-
-// // use a call back function to get articles from topHeadlines News API
+//   country: 'us'
 // }).then(response => {
-//   // const articles = response.articles;
 //   console.log(response);
+//   /*
+//     {
+//       status: "ok",
+//       sources: [...]
+//     }
+//   */
 // });
 
-
-// const articles = response[articles]
-// console.log(articles)
 
 //To query /v2/everything
 //You must include at least one q, source, or domain
@@ -93,22 +91,6 @@ app.get('/category', async (req, res) => {
 //     {
 //       status: "ok",
 //       articles: [...]
-//     }
-//   */
-// });
-
-// To query sources
-// All options are optional
-// newsapi.v2.sources({
-//   category: 'technology',
-//   language: 'en',
-//   country: 'us'
-// }).then(response => {
-//   console.log(response);
-//   /*
-//     {
-//       status: "ok",
-//       sources: [...]
 //     }
 //   */
 // });

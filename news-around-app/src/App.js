@@ -6,14 +6,18 @@ function App() {
 
   // this part is for the newsHeadline api endoint
   // still need to find a way to send language to the backend from the frontend
-
+  // const [ language, setLanguage ] = useState(null);
+ 
   const [allArticles, setAllArticles] = useState([]); // set allArticles as an empty array by default
 
   const getHeadlines = async () => {
     try {
-      const response = await fetch('http://localhost:8000/headlines');
+      const language = 'en'
+      const response = await fetch(`http://localhost:8000/headlines?language=${language}`);
+      
       // save all data from from backend server retrieved from News API
       const data = await response.json();
+      console.log(data); // handle the response from the backend
       // save all the article objects into articleData
       const articleData = data.articles;
       // use the setAllArticle function to save each article object in allArticles
