@@ -23,7 +23,7 @@ function App() {
       
       // save all data from from backend server retrieved from News API
       const data = await response.json();
-      console.log(data); // handle the response from the backend
+      // console.log(data); // handle the response from the backend
       // save all the article objects into articleData
       const articleData = data.articles;
       // use the setAllArticle function to save each article object in allArticles
@@ -84,9 +84,9 @@ function App() {
   }
 
   // check article data retrieved from headlines endpoint
-  console.log(allArticles)
+  // console.log(allArticles)
   // check article data after data clean up on headlines endpoint
-  console.log(allArticleData)
+  // console.log(allArticleData)
 
   // the code below is toe retrieve the source endpoint from NewsApi for the category filter
 
@@ -110,7 +110,7 @@ function App() {
     getCategoryNews();
   },[]); // use the useEffect hook to call the getCategoryNews function when App renders
 
-  console.log(categoryArticles)
+  // console.log(categoryArticles)
 
   return (
     <>
