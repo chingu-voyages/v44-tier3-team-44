@@ -39,15 +39,22 @@ app.get('/headlines', async (req, res) => {
 });
 
 // use the source endpoint to extract options for category filter on the frontend
+
 app.get('/category', async (req, res) => {
   try {
-  const response = await newsapi.v2.sources ({
-  })
+  const response = await newsapi.v2.sources ({});
   const sources = response.sources;
-  
+  const categories = []
+  // use a for loop to grap the category out of every source and add to an array called categories
+  for (let i = 0; i < sources.length; i++) {
+    let newCategory = sources[i].category
+    categories.push(newCategory)
+  }
+  // console.log({categories})
+  const uniqueCategories = [...new Set(categories)] // remove all the duplicates and save to a new array uniqueCategories
+  // console.log(uniqueCategories)
   // Send the articles in the response
-  res.json(sources);
-
+  res.json(uniqueCategories);
 // catch any errors 
 } catch (error) {
     console.error(error);

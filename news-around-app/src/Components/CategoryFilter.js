@@ -78,12 +78,29 @@ function CategoryFilter () {
   // check category article data after data clean up
   console.log({allCategoryData})
 
+
+  const getCategories = async () => {
+
+    try {
+      const response = await fetch('http://localhost:8000/category'); 
+      const categories = await response.json();
+      return categories
+    } catch (error) {
+      console.error(error);
+    }
+
+  };
+
+  
   return (
     <Menu >
       <MenuButton as={Button} color='#0050C8'>
         Category Search
       </MenuButton>
       <MenuList>
+        {/* {getCategories().map((category, index) => (
+          <MenuItem key={index} as={Button} onClick={() => getCategoryNews('en', {category})}>Business</MenuItem>
+        ))} */}
         <MenuItem as={Button} onClick={() => getCategoryNews('en', 'business')}>Business</MenuItem>
         <MenuItem as={Button} onClick={() => getCategoryNews('en', 'entertainment')}>Entertainment</MenuItem>
         <MenuItem as={Button}>General</MenuItem>
