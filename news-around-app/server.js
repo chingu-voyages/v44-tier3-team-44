@@ -21,14 +21,11 @@ const NewsAPI = require('newsapi');
 const newsapi = new NewsAPI(API_KEY);
 
 // Set route to /headlines to use topHeadlines endpoint 
-// Language filter
 app.get('/headlines', async (req, res) => {
   try {
-    const language = req.query.language || 'fr' // retrieve from the body.language value set in the frontend , otherwise default to french
+    const language = req.query.language // retrieve from the body.language value set in the frontend
     const response = await newsapi.v2.topHeadlines ({
-      // setting language to english for now - can let user choose later
       language: language,
-      category: "technology"
   });
 
   // Send the articles in the response
@@ -41,15 +38,15 @@ app.get('/headlines', async (req, res) => {
   }
 });
 
-// Category filter
+// use the source endpoint to extract options for category filter on the frontend
 app.get('/category', async (req, res) => {
   try {
-  const category = req.query.category || 'technology' // technology is selected if req.query.category does not work
   const response = await newsapi.v2.sources ({
-    category: category,
   })
+  const sources = response.sources;
+  
   // Send the articles in the response
-  res.json(response);
+  res.json(sources);
 
 // catch any errors 
 } catch (error) {
