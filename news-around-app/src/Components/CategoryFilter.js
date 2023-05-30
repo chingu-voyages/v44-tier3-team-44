@@ -78,19 +78,22 @@ function CategoryFilter () {
   // check category article data after data clean up
   console.log({allCategoryData})
 
+  const [uniqueCategories, setUniqueCategories] = useState([])
 
   const getCategories = async () => {
 
     try {
       const response = await fetch('http://localhost:8000/category'); 
-      const categories = await response.json();
-      return categories
+      const categories = await response.data.uniqueCategories
+      setUniqueCategories(categories)
     } catch (error) {
       console.error(error);
-    }
+    }y
 
   };
 
+  getCategories()
+  console.log({uniqueCategories})
   
   return (
     <Menu >
