@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Box, Text, Link, Image } from "@chakra-ui/react";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -26,16 +27,23 @@ const ArticleFeed = ({ selectedCategory }) => {
   }, [selectedCategory]);
 
   return (
-    <ul>
+    <Box>
       {news &&
         news.map((article) => (
-          <li key={article.url}>
-            <a href={article.url} target="_blank" rel="noopener noreferrer">
-              {article.title}
-            </a>
-          </li>
+          <Box key={article.url} borderWidth="1px" borderRadius="md" p={4} my={2}>
+            {article.urlToImage && (
+              <Box mb={4}>
+                <Image src={article.urlToImage} alt={article.title} />
+              </Box>
+            )}
+            <Link href={article.url} target="_blank" rel="noopener noreferrer">
+              <Text fontSize="xl" fontWeight="bold">
+                {article.title}
+              </Text>
+            </Link>
+          </Box>
         ))}
-    </ul>
+    </Box>
   );
 };
 

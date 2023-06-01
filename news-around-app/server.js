@@ -97,3 +97,13 @@ app.get('/category', async (req, res) => {
 
 
 app.listen(PORT, () => console.log(`Your server is running on PORT ${PORT}`));
+
+// `source:${category}`
+//{
+
+//   "source:technology": {
+//       "timestamp": "...",
+//      "value": {....}
+// },
+//   "source:travel": {...}
+//}
