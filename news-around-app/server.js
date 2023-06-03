@@ -26,10 +26,59 @@ app.get('/headlines', async (req, res) => {
     const language = req.query.language // retrieve from the body.language value set in the frontend
     const response = await newsapi.v2.topHeadlines ({
       language: language,
+      // country: 'gb',
+      // category: 'technology'
   });
 
   // Send the articles in the response
-  res.json(response);
+  const allArticles = response.articles;
+
+  // use a for loop to do data processing
+  // checked description, urlToImage and content properties, does not retrieve anything
+
+  // // store each article's data in an array where each article is stored in a dictionary
+  const allArticleData = []
+
+    for (let i = 0; i < allArticles.length; i++) {
+      let hyphenAmount = allArticles[i].title.split("-").length -1
+      let articleTitle = allArticles[i].title.split("-")[0]
+      let sourceCheck = ""
+      let author = allArticles[i].author
+      let newsSource = allArticles[i].source["Name"]
+      let url = allArticles[i].url
+      // clean publishDate property
+      let publishDate = allArticles[i].publishedAt.split("T")[0]      
+      // check title property for more than one hyphens
+      if (hyphenAmount > 1) {
+        // console.log("theres more than 1 hyphen")
+        sourceCheck = allArticles[i].title.split("-")[hyphenAmount]
+        articleTitle = allArticles[i].title.replace(sourceCheck, '')
+        // get the lastIndex of "-"
+        let lastHyphenIndex = articleTitle.lastIndexOf("-")
+        // use subString method to only save only up to the lastHyphen without the hyphen itself
+        articleTitle = articleTitle.substring(0, lastHyphenIndex)
+      }
+      // some article titles include | News Source or News Type, code below to get rid of it
+      if (articleTitle.includes("|")) {
+        articleTitle = articleTitle.split("|")[0]
+      }
+      // check author property
+      // clean up author when it is null or an empty string 
+      if (author === null || author === "") {
+        author = "N/A"
+      }
+      let articleData = {
+        title: articleTitle,
+        author: author,
+        source: newsSource, 
+        url: url, 
+        date: publishDate // 2023-05-16
+      };
+
+      allArticleData.push(articleData);
+  }
+
+  res.json(allArticleData);
 
 // catch any errors 
 } catch (error) {
