@@ -1,14 +1,16 @@
 // set localhost port 8000 to run backend server
 const PORT = 8000;
 
-// import express
+// import modules
 const express = require('express');
 const cors = require('cors');
+const NodeCache = require('node-cache')
 
 // import dotenv module to retrieve API_KEY from .env file
 require('dotenv').config()
 
 const app = express();
+const cache = new NodeCache({ stdTTL: 3600 }); // Cache TTL set to 3600 seconds (60 minutes)
 // pass json to the frontend 
 app.use(express.json());
 app.use(cors());
@@ -22,15 +24,23 @@ const newsapi = new NewsAPI(API_KEY);
 
 // Set route to /headlines to use topHeadlines endpoint 
 app.get('/headlines', async (req, res) => {
+  const cacheKey = "headlines:" + JSON.stringify(req.query); // Generate cache key base on request parameters
+  console.log({cacheKey}) // check cacheKey
+  // check if data exists in cache
+  const cacheData = cache.get(cacheKey);
+  if (cacheData) {
+    return res.json(cacheData)
+  }
   try {
     const language = req.query.language // retrieve from the body.language value set in the frontend
+    // const category = req.query.userCategory || "" // retrieve from userCategory from the frontend
     const response = await newsapi.v2.topHeadlines ({
       language: language,
       // country: 'gb',
-      // category: 'technology'
+      // category: category
   });
-
-  // Send the articles in the response
+  if (response) {
+    // retrieve the articles key from the response and store in allArticles
   const allArticles = response.articles;
 
   // use a for loop to do data processing
@@ -77,8 +87,14 @@ app.get('/headlines', async (req, res) => {
 
       allArticleData.push(articleData);
   }
-
+  // cache allArticleData with it's cacheKey
+  cache.set(cacheKey, allArticleData)
+  console.log({cacheKey});
+  // send data processed article data to the frontend
   res.json(allArticleData);
+  } else {
+    res.status(404).json({ error: "Articles not found" })
+  }
 
 // catch any errors 
 } catch (error) {
@@ -99,7 +115,6 @@ app.get('/category', async (req, res) => {
     let newCategory = sources[i].category
     categories.push(newCategory)
   }
-  // console.log({categories})
   const uniqueCategories = [...new Set(categories)] // remove all the duplicates and save to a new array uniqueCategories
   // console.log(uniqueCategories)
   // Send the articles in the response
@@ -110,45 +125,6 @@ app.get('/category', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
-
-// To query sources
-// All options are optional
-// newsapi.v2.sources({
-//   category: 'technology',
-//   language: 'en',
-//   country: 'us'
-// }).then(response => {
-//   console.log(response);
-//   /*
-//     {
-//       status: "ok",
-//       sources: [...]
-//     }
-//   */
-// });
-
-
-//To query /v2/everything
-//You must include at least one q, source, or domain
-// newsapi.v2.everything({
-//   q: 'bitcoin',
-//   sources: 'bbc-news,the-verge',
-//   domains: 'bbc.co.uk, techcrunch.com',
-//   from: '2023-05-01',
-//   to: '2023-05-115',
-//   language: 'en',
-//   sortBy: 'relevancy',
-//   page: 2
-// }).then(response => {
-//   console.log(response);
-//   /*
-//     {
-//       status: "ok",
-//       articles: [...]
-//     }
-//   */
-// });
 
 
 app.listen(PORT, () => console.log(`Your server is running on PORT ${PORT}`));
