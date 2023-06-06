@@ -1,5 +1,10 @@
 import { React, useState, useEffect } from "react";
-import { Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
+import 
+{ Button, 
+  Menu, 
+  MenuButton, 
+  MenuList, 
+  MenuItem } from '@chakra-ui/react'
 
 function CategoryFilter() {
   const [allArticles, setArticles] = useState([]);
@@ -7,8 +12,7 @@ function CategoryFilter() {
 
   const getCategoryHeadlines = async (category) => {
     try {
-      const userCategory = category;
-      const response = await fetch(`http://localhost:8000/headlines?category=${userCategory}`);
+      const response = await fetch(`http://localhost:8000/headlines?category=${category}`);
       setArticles(await response.json());
     } catch (error) {
       console.error(error);
