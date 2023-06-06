@@ -1,4 +1,3 @@
-
 import './App.css';
 import {Box, Image, HStack, Heading} from '@chakra-ui/react'
 import * as React from 'react'
@@ -18,14 +17,14 @@ function App() {
   console.log(usrlang); 
 
   // this part is for the newsHeadline api endoint 
-  const [data, setData] = useState([]) // by defaault set the data to be retrieved from newsHeadline as an empty array
+  const [allArticles, setArticles] = useState([]) // by defaault set allArticles to be retrieved from newsHeadline as an empty array
 
   useEffect(() => {
     const getHeadlines = async () => {
       try {
         const language = usrlang;
         const response = await fetch(`http://localhost:8000/headlines?language=${language}`);
-        setData(await response.json());
+        setArticles(await response.json());
       } catch (error) {
         console.error(error);
       }
@@ -35,7 +34,7 @@ function App() {
   }, [usrlang]);
 
   // check returned data from backend
-  console.log({data})
+  console.log({allArticles});
 
   return (
     <>
@@ -50,7 +49,7 @@ function App() {
         <CategoryFilter/>
         <CountryFilter />
         </HStack>
-        {/* <NewsArticle title={allArticleData[0]?.title} author={allArticleData[0]?.author}/> */}
+        <NewsArticle title={allArticles[0]?.title} author={allArticles[0]?.author}/>
 
 </>
   );

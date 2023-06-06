@@ -78,8 +78,7 @@ app.get('/category', async (req, res) => {
     categories.push(newCategory)
   }
   const uniqueCategories = [...new Set(categories)] // remove all the duplicates and save to a new array uniqueCategories
-  // console.log(uniqueCategories)
-  // Send the articles in the response
+  // Send the categories in the response
   res.json(uniqueCategories);
 // catch any errors 
 } catch (error) {
