@@ -1,3 +1,6 @@
+// import DataProcessing function
+const DataProcessing = require('./dataProcessing');
+
 // set localhost port 8000 to run backend server
 const PORT = 8000;
 
@@ -25,14 +28,14 @@ const newsapi = new NewsAPI(API_KEY);
 // Set route to /headlines to use topHeadlines endpoint 
 app.get('/headlines', async (req, res) => {
   const cacheKey = "headlines:" + JSON.stringify(req.query); // Generate cache key base on request parameters
-  console.log({cacheKey}) // check cacheKey
+  // console.log({cacheKey}) // check cacheKey
   // check if data exists in cache
   const cacheData = cache.get(cacheKey);
   if (cacheData) {
     return res.json(cacheData)
   }
   try {
-    const language = req.query.language // retrieve from the body.language value set in the frontend
+    const language = req.query.language || "en" // retrieve from the body.language value set in the frontend
     // const category = req.query.userCategory || "" // retrieve from userCategory from the frontend
     const response = await newsapi.v2.topHeadlines ({
       language: language,
@@ -44,54 +47,13 @@ app.get('/headlines', async (req, res) => {
   const allArticles = response.articles;
 
   // use a for loop to do data processing
-  // checked description, urlToImage and content properties, does not retrieve anything
+  const processedData = DataProcessing(allArticles);
 
-  // // store each article's data in an array where each article is stored in a dictionary
-  const allArticleData = []
-
-    for (let i = 0; i < allArticles.length; i++) {
-      let hyphenAmount = allArticles[i].title.split("-").length -1
-      let articleTitle = allArticles[i].title.split("-")[0]
-      let sourceCheck = ""
-      let author = allArticles[i].author
-      let newsSource = allArticles[i].source["Name"]
-      let url = allArticles[i].url
-      // clean publishDate property
-      let publishDate = allArticles[i].publishedAt.split("T")[0]      
-      // check title property for more than one hyphens
-      if (hyphenAmount > 1) {
-        // console.log("theres more than 1 hyphen")
-        sourceCheck = allArticles[i].title.split("-")[hyphenAmount]
-        articleTitle = allArticles[i].title.replace(sourceCheck, '')
-        // get the lastIndex of "-"
-        let lastHyphenIndex = articleTitle.lastIndexOf("-")
-        // use subString method to only save only up to the lastHyphen without the hyphen itself
-        articleTitle = articleTitle.substring(0, lastHyphenIndex)
-      }
-      // some article titles include | News Source or News Type, code below to get rid of it
-      if (articleTitle.includes("|")) {
-        articleTitle = articleTitle.split("|")[0]
-      }
-      // check author property
-      // clean up author when it is null or an empty string 
-      if (author === null || author === "") {
-        author = "N/A"
-      }
-      let articleData = {
-        title: articleTitle,
-        author: author,
-        source: newsSource, 
-        url: url, 
-        date: publishDate // 2023-05-16
-      };
-
-      allArticleData.push(articleData);
-  }
   // cache allArticleData with it's cacheKey
-  cache.set(cacheKey, allArticleData)
-  console.log({cacheKey});
+  cache.set(cacheKey, processedData)
+  console.log('cacheData', cacheData);
   // send data processed article data to the frontend
-  res.json(allArticleData);
+  res.json(processedData);
   } else {
     res.status(404).json({ error: "Articles not found" })
   }
