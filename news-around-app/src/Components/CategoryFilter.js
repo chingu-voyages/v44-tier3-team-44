@@ -34,7 +34,7 @@ function CategoryFilter() {
   console.log({ categories });
 
   useEffect(() => {
-    console.log({ allArticles });
+    console.log({ allArticles }); // to write code to display the articles to the user after button is pressed
   }, [allArticles]);
 
   return (

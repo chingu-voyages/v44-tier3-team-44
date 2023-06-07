@@ -11,7 +11,9 @@ for (let i = 0; i < allArticles.length; i++) {
   let newsSource = allArticles[i].source["Name"]
   let url = allArticles[i].url
   // clean publishDate property
-  let publishDate = allArticles[i].publishedAt.split("T")[0]      
+  let publishDate = allArticles[i].publishedAt.split("T")[0] 
+  let publishTime = allArticles[i].publishedAt.split("T")[1].split(":").slice(0, 2).join(":")
+  let formattedDateTime = publishDate + " " + publishTime
   // check title property for more than one hyphens
   if (hyphenAmount > 1) {
     // console.log("theres more than 1 hyphen")
@@ -36,7 +38,7 @@ for (let i = 0; i < allArticles.length; i++) {
     author: author,
     source: newsSource, 
     url: url, 
-    date: publishDate // 2023-05-16
+    dateTime: formattedDateTime // 2023-05-16 10:05
   };
 
   allArticleData.push(articleData);
