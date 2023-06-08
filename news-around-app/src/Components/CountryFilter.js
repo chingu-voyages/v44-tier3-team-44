@@ -12,10 +12,16 @@ const CountryFilter = () => {
 
   const [allArticles, setArticles] = useState([]);
 
-  const countryDict = {
-    "UK" : "gb",
-    "US" : "us"
-  }
+  const [countryDict, setCountryInfo] = useState([]);
+
+  const getCountryInfo = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/country");
+      setCountryInfo(await response.json());
+    } catch (error) {
+      console.error(error);
+    }
+  } 
 
   const getCountryHeadlines = async (country) => {
     try {
@@ -29,6 +35,10 @@ const CountryFilter = () => {
   useEffect(() => {
     console.log( 'Country Articles:', allArticles ); // to write code to display the articles to the user after button is pressed
   }, [allArticles]);
+
+  useEffect(() => {
+    getCountryInfo()
+  }, []);
 
   return (
     <Menu>

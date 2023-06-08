@@ -7,7 +7,8 @@ const PORT = 8000;
 // import modules
 const express = require('express');
 const cors = require('cors');
-const NodeCache = require('node-cache')
+const axios = require('axios');
+const NodeCache = require('node-cache');
 
 // import dotenv module to retrieve API_KEY from .env file
 require('dotenv').config()
@@ -96,5 +97,47 @@ app.get('/category', async (req, res) => {
   }
 });
 
+
+// use another api to line up the country codes with the country news and store in a dictionary
+// extract country codes 
+app.get('/country', async (req, res) => {
+  const cacheKey = "country";
+  const cacheData = cache.get(cacheKey);
+  console.log({cacheData})
+  if (cacheData) {
+    return res.json(cacheData);
+  }
+  try {
+  const response = await newsapi.v2.sources ({});
+  const sources = response.sources;
+  const countryCodes = []
+  // use a for loop to grap the category out of every source and add to an array called categories
+  for (let i = 0; i < sources.length; i++) {
+    let newCountryCode = sources[i].country
+    countryCodes.push(newCountryCode)
+  }
+  const uniqueCountryCodes = [...new Set(countryCodes)] // remove all the duplicates and save to a new array uniqueCategories
+  // Send the categories in the response
+  // console.log(uniqueCountryCodes)
+  const countryDict = {}
+  for (let i = 0; i < uniqueCountryCodes.length; i++) {
+    let countryCode = uniqueCountryCodes[i]
+    let countryResponse = await axios.get(`http://api.worldbank.org/v2/country/${countryCode}?format=json`);
+    let countryName = countryResponse.data[1][0]["name"]
+    countryDict[countryName] = countryCode
+  }
+  const sortedKeys = Object.keys(countryDict).sort(); // sorts countryDict Keys with countries in alphabetical order
+  const sortedCountryDict = {};
+  for (const country of sortedKeys) {
+    sortedCountryDict[country] = countryDict[country];
+  }
+  cache.set(cacheKey, sortedCountryDict)
+  res.json(sortedCountryDict);
+// catch any errors 
+} catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 app.listen(PORT, () => console.log(`Your server is running on PORT ${PORT}`));
