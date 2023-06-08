@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cors());
 
 // retrieve API_KEY from .env file
-const API_KEY = process.env.API_KEY
+const API_KEY = process.env.API_KEY 
 
 // use NodeJS Client Library to set up News API
 const NewsAPI = require('newsapi');
@@ -36,11 +36,11 @@ app.get('/headlines', async (req, res) => {
   }
   try {
     const language = req.query.language || "en" // retrieve from the body.language value set in the frontend
-    // const category = req.query.userCategory || "" // retrieve from userCategory from the frontend
+    const category = req.query.category || "" // retrieve from userCategory from the frontend
     const response = await newsapi.v2.topHeadlines ({
       language: language,
       // country: 'gb',
-      // category: category
+      category: category
   });
   if (response) {
     // retrieve the articles key from the response and store in allArticles
@@ -68,6 +68,12 @@ app.get('/headlines', async (req, res) => {
 // use the source endpoint to extract options for category filter on the frontend
 
 app.get('/category', async (req, res) => {
+  const cacheKey = "categories";
+  const cacheData = cache.get(cacheKey);
+  console.log({cacheData})
+  if (cacheData) {
+    return res.json(cacheData);
+  }
   try {
   const response = await newsapi.v2.sources ({});
   const sources = response.sources;
@@ -79,7 +85,9 @@ app.get('/category', async (req, res) => {
   }
   const uniqueCategories = [...new Set(categories)] // remove all the duplicates and save to a new array uniqueCategories
   // Send the categories in the response
+  cache.set(cacheKey, uniqueCategories)
   res.json(uniqueCategories);
+
 // catch any errors 
 } catch (error) {
     console.error(error);
