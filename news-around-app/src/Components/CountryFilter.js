@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import {
   Button,
   Menu,
@@ -8,18 +8,39 @@ import {
 } from '@chakra-ui/react'
 
 
-function CountryFilter () {            
+const CountryFilter = () => { 
+
+  const [allArticles, setArticles] = useState([]);
+
+  const countryDict = {
+    "UK" : "gb",
+    "US" : "us"
+  }
+
+  const getCountryHeadlines = async (country) => {
+    try {
+      const response = await fetch(`http://localhost:8000/headlines?country=${country}`);
+      setArticles(await response.json());
+    } catch (error) {
+      console.error(error);
+    }
+  } 
+  
+  useEffect(() => {
+    console.log( 'Country Articles:', allArticles ); // to write code to display the articles to the user after button is pressed
+  }, [allArticles]);
+
   return (
     <Menu>
       <MenuButton as={Button} color='#0050C8'>
         Country Search
       </MenuButton>
       <MenuList>
-        <MenuItem>United Arab Emirates</MenuItem>
-        <MenuItem>Argentina</MenuItem>
-        <MenuItem>Austria</MenuItem>
-        <MenuItem>Australia</MenuItem>
-        <MenuItem>Belgium</MenuItem>
+      {Object.entries(countryDict).map(([key, value]) => (
+        <MenuItem key={key} as={Button} onClick={() => getCountryHeadlines(value)}>
+          {key}
+        </MenuItem>
+      ))}
       </MenuList>
     </Menu>
   );

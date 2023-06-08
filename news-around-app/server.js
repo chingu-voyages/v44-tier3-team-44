@@ -35,11 +35,12 @@ app.get('/headlines', async (req, res) => {
     return res.json(cacheData)
   }
   try {
-    const language = req.query.language || "en" // retrieve from the body.language value set in the frontend
+    const language = req.query.language || "" // retrieve from the body.language value set in the frontend
     const category = req.query.category || "" // retrieve from userCategory from the frontend
+    const country = req.query.country || ""
     const response = await newsapi.v2.topHeadlines ({
       language: language,
-      // country: 'gb',
+      country: country,
       category: category
   });
   if (response) {
