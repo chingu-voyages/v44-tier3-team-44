@@ -7,7 +7,6 @@ const PORT = 8000;
 // import modules
 const express = require('express');
 const cors = require('cors');
-const axios = require('axios');
 const NodeCache = require('node-cache');
 
 // import dotenv module to retrieve API_KEY from .env file
