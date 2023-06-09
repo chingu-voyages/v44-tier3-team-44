@@ -22,11 +22,11 @@ for (let i = 0; i < allArticles.length; i++) {
     // get the lastIndex of "-"
     let lastHyphenIndex = articleTitle.lastIndexOf("-")
     // use subString method to only save only up to the lastHyphen without the hyphen itself
-    articleTitle = articleTitle.substring(0, lastHyphenIndex)
+    articleTitle = articleTitle.substring(0, lastHyphenIndex).trim()
   }
   // some article titles include | News Source or News Type, code below to get rid of it
   if (articleTitle.includes("|")) {
-    articleTitle = articleTitle.split("|")[0]
+    articleTitle = articleTitle.split("|")[0].trim()
   }
   // check author property
   // clean up author when it is null or an empty string 

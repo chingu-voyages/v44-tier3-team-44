@@ -38,7 +38,7 @@ app.get('/headlines', async (req, res) => {
   }
   try {
     const language = req.query.language || "" // retrieve from the body.language value set in the frontend
-    const category = req.query.category || "" // retrieve from userCategory from the frontend
+    const category = req.query.category || "" // retrieve category from the frontend
     const country = req.query.country || ""
     const response = await newsapi.v2.topHeadlines ({
       language: language,

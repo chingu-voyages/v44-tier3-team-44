@@ -31,8 +31,6 @@ const CategoryFilter = () => {
     getCategories();
   }, []);
 
-  console.log({ categories });
-
   useEffect(() => {
     console.log( 'Category Articles:', allArticles ); // to write code to display the articles to the user after button is pressed
   }, [allArticles]);
