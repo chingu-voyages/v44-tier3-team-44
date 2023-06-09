@@ -12,12 +12,12 @@ const CountryFilter = () => {
 
   const [allArticles, setArticles] = useState([]);
 
-  const [countryDict, setCountryInfo] = useState([]);
+  const [countryOptions, setCountryOptions] = useState([]);
 
-  const getCountryInfo = async () => {
+  const getCountryOptions = async () => {
     try {
       const response = await fetch("http://localhost:8000/country");
-      setCountryInfo(await response.json());
+      setCountryOptions(await response.json());
     } catch (error) {
       console.error(error);
     }
@@ -37,8 +37,8 @@ const CountryFilter = () => {
   }, [allArticles]);
 
   useEffect(() => {
-    getCountryInfo()
-  }, []);
+    getCountryOptions()
+  }, []); // call the Country Options automically when the App renders
 
   return (
     <Menu>
@@ -46,7 +46,7 @@ const CountryFilter = () => {
         Country Search
       </MenuButton>
       <MenuList>
-      {Object.entries(countryDict).map(([key, value]) => (
+      {Object.entries(countryOptions).map(([key, value]) => (
         <MenuItem key={key} as={Button} onClick={() => getCountryHeadlines(value)}>
           {key}
         </MenuItem>
