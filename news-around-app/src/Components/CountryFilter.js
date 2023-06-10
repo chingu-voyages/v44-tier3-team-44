@@ -16,7 +16,7 @@ const CountryFilter = () => {
 
   const getCountryOptions = async () => {
     try {
-      const response = await fetch("http://localhost:8000/country");
+      const response = await fetch("https://what-happens.onrender.com/country");
       setCountryOptions(await response.json());
     } catch (error) {
       console.error(error);
@@ -25,7 +25,7 @@ const CountryFilter = () => {
 
   const getCountryHeadlines = async (country) => {
     try {
-      const response = await fetch(`http://localhost:8000/headlines?country=${country}`);
+      const response = await fetch(`https://what-happens.onrender.com/headlines?country=${country}`);
       setArticles(await response.json());
     } catch (error) {
       console.error(error);
