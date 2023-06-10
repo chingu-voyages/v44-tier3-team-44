@@ -7,7 +7,6 @@ import {
   MenuItem
 } from '@chakra-ui/react'
 
-
 const CountryFilter = () => { 
 
   const [allArticles, setArticles] = useState([]);
@@ -42,12 +41,12 @@ const CountryFilter = () => {
 
   return (
     <Menu>
-      <MenuButton as={Button} color='#0050C8'>
-        Country Search
+      <MenuButton as={Button} color='black' fontWeight='light' _hover={{ backgroundColor: '#0050C8', color: "white" }}>
+        Select Country
       </MenuButton>
       <MenuList>
       {Object.entries(countryOptions).map(([key, value]) => (
-        <MenuItem key={key} as={Button} onClick={() => getCountryHeadlines(value)}>
+        <MenuItem key={key} as={Button} _hover={{ backgroundColor: '#0050C8', color: "white" }} onClick={() => getCountryHeadlines(value)}>
           {key}
         </MenuItem>
       ))}

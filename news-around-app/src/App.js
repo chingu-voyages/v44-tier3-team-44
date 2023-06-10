@@ -1,10 +1,12 @@
 import './App.css';
-import {Box, Image, HStack, Heading} from '@chakra-ui/react'
+import './index.css'
+import {Box, Image, VStack, HStack, Heading} from '@chakra-ui/react'
 import * as React from 'react'
 import { useState, useEffect } from 'react'
 import CountryFilter from './Components/CountryFilter';
 import CategoryFilter from './Components/CategoryFilter';
 import NewsArticle from './Components/NewsArticle';
+import Footer from './Components/Footer';
 
 function App() {
 
@@ -35,25 +37,54 @@ function App() {
 
   // check returned data from backend
   // console.log({allArticles});
+  
 
   return (
     <>
-      <HStack ml='250px' spacing='24px'>
-        <Box >
-          <Image src="https://i.gifer.com/69QH.gif"
-          boxSize='200px'
+      <VStack ml={{ base: 0, md: '250px' }} spacing={{ base: 4, md: 4 }} 
+       >
+        <Box  width="20%" height="auto" maxHeight="400px" >
+          <Image src="https://media.discordapp.net/attachments/1101934137029435533/1113442514104483840/What_Happens_logo.png?width=936&height=936"
+           boxSize={{ base: '150px', md: '150px' }}
+           marginLeft={-16}
+            objectFit="contain"
+            alt="News Logo"
+          
           >
           </Image>
             </Box>
-            <Heading color='#0050C8' fontWeight='bold'>What Happens</Heading>
-        <CategoryFilter/>
-        <CountryFilter />
-        </HStack>
-        <NewsArticle title={allArticles[0]?.title} author={allArticles[0]?.author}/>
+            <Box top="100px" transform="translate(-15%, -50%)" zIndex={9999}>
+            <HStack spacing={2}>
+              <CategoryFilter />
+              <CountryFilter />
+            </HStack>
+          </Box>
+          <Box width="100%" textAlign="left">
+          <Heading color="#0050C8" fontWeight="bold" marginBottom={10}> 
+            Breaking News
+          </Heading>
+        </Box>
+        </VStack>
+        <NewsArticle allArticles={allArticles}/>
+        <Footer/>
+
+        
 
 </>
   );
 }
 
+//title={allArticles.title} author={allArticles.author} source={allArticles.source}/>
+// <Heading color='#0050C8' fontWeight='bold' paddingLeft={paddingLeft} marginBottom={10}>Breaking News</Heading>
+//<NewsArticle allArticles={allArticles}/>
 
 export default App;
+
+/**
+ *  <Image src="https://i.gifer.com/69QH.gif"
+          boxSize='200px'
+          >
+          </Image>
+            </Box>
+            <Heading color='#0050C8' fontWeight='bold'>What Happens</Heading>
+ */
