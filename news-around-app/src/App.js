@@ -23,7 +23,7 @@ function App() {
     const getHeadlines = async () => {
       try {
         const language = usrlang;
-        const response = await fetch(`http://localhost:8000/headlines?language=${language}`);
+        const response = await fetch(`https://what-happens.onrender.com/headlines?language=${language}`);
         setArticles(await response.json());
       } catch (error) {
         console.error(error);
