@@ -6,18 +6,8 @@ import
   } from '@chakra-ui/react'
   
 
-const CategoryFilter = () => {
-  const [allArticles, setArticles] = useState([]);
+const CategoryFilter = (getCategoryHeadlines) => {
   const [categories, setCategories] = useState([]);
-
-  const getCategoryHeadlines = async (category) => {
-    try {
-      const response = await fetch(`http://localhost:8000/headlines?category=${category}`);
-      setArticles(await response.json());
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   useEffect(() => {
     const getCategories = async () => {
@@ -30,10 +20,6 @@ const CategoryFilter = () => {
     }
     getCategories();
   }, []);
-
-  useEffect(() => {
-    console.log( 'Category Articles:', allArticles ); // to write code to display the articles to the user after button is pressed
-  }, [allArticles]);
 
   return (
     <Flex justifyContent="center">

@@ -19,14 +19,41 @@ function App() {
   // console.log(usrlang); 
 
   // this part is for the newsHeadline api endoint 
-  const [allArticles, setArticles] = useState([]) // by defaault set allArticles to be retrieved from newsHeadline as an empty array
+  const [allArticles, setAllArticles] = useState([]) // by defaault set allArticles to be retrieved from newsHeadline as an empty array
+  const [categoryArticles, setCategoryArticles] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  const getCategoryHeadlines = async (category) => {
+    try {
+      const response = await fetch(`http://localhost:8000/headlines?category=${category}`);
+      setCategoryArticles(await response.json());
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/category');
+        setCategories(await response.json());
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getCategories();
+  }, []);
+
+  useEffect(() => {
+    console.log( 'Category Articles:', categoryArticles ); // to write code to display the articles to the user after button is pressed
+  }, [categoryArticles]);
 
   useEffect(() => {
     const getHeadlines = async () => {
       try {
         const language = usrlang;
         const response = await fetch(`http://localhost:8000/headlines?language=${language}`);
-        setArticles(await response.json());
+        setAllArticles(await response.json());
       } catch (error) {
         console.error(error);
       }
@@ -52,21 +79,21 @@ function App() {
           
           >
           </Image>
-            </Box>
-            <Box top="100px" transform="translate(-15%, -50%)" zIndex={9999}>
+        </Box>
+        <Box top="100px" transform="translate(-15%, -50%)" zIndex={9999}>
             <HStack spacing={2}>
-              <CategoryFilter />
+              <CategoryFilter getCategoryHeadlines={getCategoryHeadlines} />
               <CountryFilter />
             </HStack>
-          </Box>
-          <Box width="100%" textAlign="left">
+        </Box>
+        <Box width="100%" textAlign="left">
           <Heading color="#0050C8" fontWeight="bold" marginBottom={10}> 
             Breaking News
           </Heading>
         </Box>
-        </VStack>
-        <NewsArticle allArticles={allArticles}/>
-        <Footer/>
+      </VStack>
+      <NewsArticle allArticles={allArticles} categoryArticles={categoryArticles} getCategoryHeadlines={getCategoryHeadlines} />
+      <Footer/>
 
         
 

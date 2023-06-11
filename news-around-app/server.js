@@ -72,7 +72,7 @@ app.get('/headlines', async (req, res) => {
 app.get('/category', async (req, res) => {
   const cacheKey = "categories";
   const cacheData = cache.get(cacheKey);
-  console.log({cacheData})
+  // console.log({cacheData})
   if (cacheData) {
     return res.json(cacheData);
   }

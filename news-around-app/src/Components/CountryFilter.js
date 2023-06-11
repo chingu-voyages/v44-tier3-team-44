@@ -9,7 +9,7 @@ import {
 
 const CountryFilter = () => { 
 
-  const [allArticles, setArticles] = useState([]);
+  const [countryArticles, setArticles] = useState([]);
 
   const [countryOptions, setCountryOptions] = useState([]);
 
@@ -32,8 +32,8 @@ const CountryFilter = () => {
   } 
   
   useEffect(() => {
-    console.log( 'Country Articles:', allArticles ); // to write code to display the articles to the user after button is pressed
-  }, [allArticles]);
+    console.log( 'Country Articles:', countryArticles ); // to write code to display the articles to the user after button is pressed
+  }, [countryArticles]);
 
   useEffect(() => {
     getCountryOptions()
