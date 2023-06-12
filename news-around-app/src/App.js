@@ -19,9 +19,9 @@ function App() {
   // console.log(usrlang); 
 
   // this part is for the newsHeadline api endoint 
-  const [allArticles, setAllArticles] = useState([]) // by defaault set allArticles to be retrieved from newsHeadline as an empty array
+  const [allArticles, setAllArticles] = useState(null) // by defaault set allArticles to be retrieved from newsHeadline as an empty array
   const [categoryArticles, setCategoryArticles] = useState([]);
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
 
   const getCategoryHeadlines = async (category) => {
     try {
@@ -32,17 +32,17 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    const getCategories = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/category');
-        setCategories(await response.json());
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    getCategories();
-  }, []);
+  // useEffect(() => {
+  //   const getCategories = async () => {
+  //     try {
+  //       const response = await fetch('http://localhost:8000/category');
+  //       setCategories(await response.json());
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  //   getCategories();
+  // }, []);
 
   useEffect(() => {
     console.log( 'Category Articles:', categoryArticles ); // to write code to display the articles to the user after button is pressed
@@ -54,6 +54,7 @@ function App() {
         const language = usrlang;
         const response = await fetch(`http://localhost:8000/headlines?language=${language}`);
         setAllArticles(await response.json());
+        console.log({allArticles});
       } catch (error) {
         console.error(error);
       }
@@ -64,6 +65,15 @@ function App() {
 
   // check returned data from backend
   // console.log({allArticles});
+
+  // useEffect(() => {
+  //   const renderHeadlines = () => {
+
+  //   };
+  
+  //   renderHeadlines();
+  // }, [allArticles]);
+
   
 
   return (
