@@ -6,7 +6,7 @@ import
   } from '@chakra-ui/react'
   
 
-const CategoryFilter = (getCategoryHeadlines) => {
+const CategoryFilter = ({getCategoryHeadlines}) => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -48,17 +48,3 @@ const CategoryFilter = (getCategoryHeadlines) => {
 export default CategoryFilter;
 
 
-/**
- <Menu>
-      <MenuButton as={Button} color='black' fontWeight='light'>
-        Category Search
-      </MenuButton>
-      <MenuList>
-        {categories.map((category, index) => (
-          <MenuItem key={index} as={Button} onClick={() => getCategoryHeadlines(category)}>
-            {category.charAt(0).toUpperCase() + category.slice(1)}
-          </MenuItem>
-        ))}
-      </MenuList>
-    </Menu> 
-*/
