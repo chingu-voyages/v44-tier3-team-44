@@ -19,16 +19,24 @@ function App() {
   // console.log(usrlang); 
 
   // this part is for the newsHeadline api endoint 
-  const [allArticles, setAllArticles] = useState([]) // by defaault set allArticles to be retrieved from newsHeadline as an empty array
-  const [categoryArticles, setCategoryArticles] = useState([]);
+  const [articles, setArticles] = useState([]) // by defaault set allArticles to be retrieved from newsHeadline as an empty array
+
+  // 0. Initially you were using multiple states to keep track of data from different sources
+  // 1. on initial render the data would come from getHeadlines, and go into allArticles
+  // 2. when the user clicked a category you would would fetch new data with getCategoryHeadlines, and it would go into categoryArticles
+  // 3. Your NewsArticle component needed to decide on which data to show. This isn't a responsibility that this component should have
+  // 4. The update gets rid of different states for the articles data, and consolidates the state into one called "articles".
+  // 5. articles is set to different values depending on how the user interacts with the app. The NewsArticle component is then made simpler
+  // and only focuses on rendering articles without caring or even knowing where they come from.
+  // const [categoryArticles, setCategoryArticles] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [countryArticles, setArticles] = useState([]);
+  // const [countryArticles, setCountryArticles] = useState([]);
   const [countryOptions, setCountryOptions] = useState([]);
 
   const getCategoryHeadlines = async (category) => {
     try {
       const response = await fetch(`http://localhost:8000/headlines?category=${category}`);
-      setCategoryArticles(await response.json());
+      setArticles(await response.json());
     } catch (error) {
       console.error(error);
     }
@@ -46,21 +54,24 @@ function App() {
     getCategories();
   }, []);
 
-  useEffect(() => {
-    console.log( 'Category Articles:', categoryArticles ); // to write code to display the articles to the user after button is pressed
-  }, [categoryArticles]);
+  // useEffect(() => {
+  //   console.log( 'Category Articles:', categoryArticles ); // to write code to display the articles to the user after button is pressed
+  // }, [categoryArticles]);
 
   useEffect(() => {
     const getHeadlines = async () => {
+
+      console.log("called get headlines")
+
       try {
         const language = usrlang;
         const response = await fetch(`http://localhost:8000/headlines?language=${language}`);
-        setAllArticles(await response.json());
+        setArticles(await response.json());
       } catch (error) {
         console.error(error);
       }
     };
-  
+
     getHeadlines();
   }, [usrlang]);
 
@@ -85,9 +96,9 @@ function App() {
     }
   } 
   
-  useEffect(() => {
-    console.log( 'Country Articles:', countryArticles ); // to write code to display the articles to the user after button is pressed
-  }, [countryArticles]);
+  // useEffect(() => {
+  //   console.log( 'Country Articles:', countryArticles ); // to write code to display the articles to the user after button is pressed
+  // }, [countryArticles]);
 
   useEffect(() => {
     getCountryOptions()
@@ -120,7 +131,7 @@ function App() {
           </Heading>
         </Box>
       </VStack>
-      <NewsArticle allArticles={allArticles} categoryArticles={categoryArticles} getCategoryHeadlines={getCategoryHeadlines} getCountryHeadlines={getCountryHeadlines} />
+      <NewsArticle articles={articles} />
       <Footer/>
 
         
