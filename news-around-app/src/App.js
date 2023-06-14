@@ -22,6 +22,8 @@ function App() {
   const [allArticles, setAllArticles] = useState([]) // by defaault set allArticles to be retrieved from newsHeadline as an empty array
   const [categoryArticles, setCategoryArticles] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [countryArticles, setArticles] = useState([]);
+  const [countryOptions, setCountryOptions] = useState([]);
 
   const getCategoryHeadlines = async (category) => {
     try {
@@ -65,6 +67,32 @@ function App() {
   // check returned data from backend
   // console.log({allArticles});
   
+  const getCountryOptions = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/country");
+      setCountryOptions(await response.json());
+    } catch (error) {
+      console.error(error);
+    }
+  } 
+
+  const getCountryHeadlines = async (country) => {
+    try {
+      const response = await fetch(`http://localhost:8000/headlines?country=${country}`);
+      setArticles(await response.json());
+    } catch (error) {
+      console.error(error);
+    }
+  } 
+  
+  useEffect(() => {
+    console.log( 'Country Articles:', countryArticles ); // to write code to display the articles to the user after button is pressed
+  }, [countryArticles]);
+
+  useEffect(() => {
+    getCountryOptions()
+  }, []); // call the Country Options automically when the App renders
+
 
   return (
     <>
@@ -92,7 +120,7 @@ function App() {
           </Heading>
         </Box>
       </VStack>
-      <NewsArticle allArticles={allArticles} categoryArticles={categoryArticles} getCategoryHeadlines={getCategoryHeadlines} />
+      <NewsArticle allArticles={allArticles} categoryArticles={categoryArticles} getCategoryHeadlines={getCategoryHeadlines} getCountryHeadlines={getCountryHeadlines} />
       <Footer/>
 
         
