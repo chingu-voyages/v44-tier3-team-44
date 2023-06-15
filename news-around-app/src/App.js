@@ -31,7 +31,7 @@ function App() {
 
   const getCategoryHeadlines = async (category) => {
     try {
-      const response = await fetch(`http://localhost:8000/headlines?category=${category}`);
+      const response = await fetch(`http://localhost:8000/headlines?language=${usrlang}&category=${category}`);
       setArticles(await response.json());
     } catch (error) {
       console.error(error);
@@ -44,8 +44,7 @@ function App() {
       console.log("called get headlines")
 
       try {
-        const language = usrlang;
-        const response = await fetch(`http://localhost:8000/headlines?language=${language}`);
+        const response = await fetch(`http://localhost:8000/headlines?language=${usrlang}`);
         setArticles(await response.json());
       } catch (error) {
         console.error(error);
