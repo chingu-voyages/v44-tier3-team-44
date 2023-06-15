@@ -7,37 +7,21 @@ import {
   MenuItem
 } from '@chakra-ui/react'
 
-const CountryFilter = () => { 
-
-  const [countryArticles, setArticles] = useState([]);
+const CountryFilter = ({getCountryHeadlines}) => {
 
   const [countryOptions, setCountryOptions] = useState([]);
-
-  const getCountryOptions = async () => {
-    try {
-      const response = await fetch("http://localhost:8000/country");
-      setCountryOptions(await response.json());
-    } catch (error) {
-      console.error(error);
-    }
-  } 
-
-  const getCountryHeadlines = async (country) => {
-    try {
-      const response = await fetch(`http://localhost:8000/headlines?country=${country}`);
-      setArticles(await response.json());
-    } catch (error) {
-      console.error(error);
-    }
-  } 
   
   useEffect(() => {
-    console.log( 'Country Articles:', countryArticles ); // to write code to display the articles to the user after button is pressed
-  }, [countryArticles]);
-
-  useEffect(() => {
-    getCountryOptions()
-  }, []); // call the Country Options automically when the App renders
+    const getCountryOptions = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/country");
+        setCountryOptions(await response.json());
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getCountryOptions();
+  }, []);
 
   return (
     <Menu>

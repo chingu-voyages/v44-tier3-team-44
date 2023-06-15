@@ -28,10 +28,6 @@ function App() {
   // 4. The update gets rid of different states for the articles data, and consolidates the state into one called "articles".
   // 5. articles is set to different values depending on how the user interacts with the app. The NewsArticle component is then made simpler
   // and only focuses on rendering articles without caring or even knowing where they come from.
-  // const [categoryArticles, setCategoryArticles] = useState([]);
-  const [categories, setCategories] = useState([]);
-  // const [countryArticles, setCountryArticles] = useState([]);
-  const [countryOptions, setCountryOptions] = useState([]);
 
   const getCategoryHeadlines = async (category) => {
     try {
@@ -42,22 +38,6 @@ function App() {
     }
   }
 
-  // useEffect(() => {
-  //   const getCategories = async () => {
-  //     try {
-  //       const response = await fetch('http://localhost:8000/category');
-  //       setCategories(await response.json());
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-  //   getCategories();
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log( 'Category Articles:', categoryArticles ); // to write code to display the articles to the user after button is pressed
-  // }, [categoryArticles]);
-
   useEffect(() => {
     const getHeadlines = async () => {
 
@@ -66,7 +46,7 @@ function App() {
       try {
         const language = usrlang;
         const response = await fetch(`http://localhost:8000/headlines?language=${language}`);
-        setAllArticles(await response.json());
+        setArticles(await response.json());
       } catch (error) {
         console.error(error);
       }
@@ -74,18 +54,6 @@ function App() {
 
     getHeadlines();
   }, [usrlang]);
-
-  // check returned data from backend
-  // console.log({allArticles});
-  
-  const getCountryOptions = async () => {
-    try {
-      const response = await fetch("http://localhost:8000/country");
-      setCountryOptions(await response.json());
-    } catch (error) {
-      console.error(error);
-    }
-  } 
 
   const getCountryHeadlines = async (country) => {
     try {
@@ -95,14 +63,6 @@ function App() {
       console.error(error);
     }
   } 
-  
-  // useEffect(() => {
-  //   console.log( 'Country Articles:', countryArticles ); // to write code to display the articles to the user after button is pressed
-  // }, [countryArticles]);
-
-  useEffect(() => {
-    getCountryOptions()
-  }, []); // call the Country Options automically when the App renders
 
 
   return (
@@ -122,7 +82,7 @@ function App() {
         <Box top="100px" transform="translate(-15%, -50%)" zIndex={9999}>
             <HStack spacing={2}>
               <CategoryFilter getCategoryHeadlines={getCategoryHeadlines} />
-              <CountryFilter />
+              <CountryFilter getCountryHeadlines={getCountryHeadlines} />
             </HStack>
         </Box>
         <Box width="100%" textAlign="left">
