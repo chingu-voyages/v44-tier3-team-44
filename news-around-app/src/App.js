@@ -99,17 +99,4 @@ function App() {
   );
 }
 
-//title={allArticles.title} author={allArticles.author} source={allArticles.source}/>
-// <Heading color='#0050C8' fontWeight='bold' paddingLeft={paddingLeft} marginBottom={10}>Breaking News</Heading>
-//<NewsArticle allArticles={allArticles}/>
-
 export default App;
-
-/**
- *  <Image src="https://i.gifer.com/69QH.gif"
-          boxSize='200px'
-          >
-          </Image>
-            </Box>
-            <Heading color='#0050C8' fontWeight='bold'>What Happens</Heading>
- */
