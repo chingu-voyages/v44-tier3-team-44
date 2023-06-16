@@ -23,16 +23,16 @@ const API_KEY = process.env.API_KEY
 
 // use NodeJS Client Library to set up News API
 const NewsAPI = require('newsapi');
-const e = require('express');
 const newsapi = new NewsAPI(API_KEY);
 
 // Set route to /headlines to use topHeadlines endpoint 
 app.get('/headlines', async (req, res) => {
   const cacheKey = "headlines:" + JSON.stringify(req.query); // Generate cache key base on request parameters
-  // console.log({cacheKey}) // check cacheKey
+  console.log({cacheKey}) // check cacheKey
   // check if data exists in cache
   const cacheData = cache.get(cacheKey);
   if (cacheData) {
+    console.log('cacheData', cacheData); // check if cacheData has been set
     return res.json(cacheData)
   }
   try {
@@ -53,7 +53,7 @@ app.get('/headlines', async (req, res) => {
 
   // cache allArticleData with it's cacheKey
   cache.set(cacheKey, processedData)
-  console.log('cacheData', cacheData);
+  
   // send data processed article data to the frontend
   res.json(processedData);
   } else {
@@ -72,7 +72,7 @@ app.get('/headlines', async (req, res) => {
 app.get('/category', async (req, res) => {
   const cacheKey = "categories";
   const cacheData = cache.get(cacheKey);
-  // console.log({cacheData})
+  console.log("Category cache data:", cacheData)
   if (cacheData) {
     return res.json(cacheData);
   }

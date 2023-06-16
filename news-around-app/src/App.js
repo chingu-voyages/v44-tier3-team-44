@@ -16,7 +16,7 @@ function App() {
     usrlang = usrlang.split("-")[0]
   }
   // check user's language
-  // console.log(usrlang); 
+  console.log(usrlang); 
 
   // this part is for the newsHeadline api endoint 
   const [articles, setArticles] = useState([]) // by defaault set allArticles to be retrieved from newsHeadline as an empty array
@@ -40,9 +40,6 @@ function App() {
 
   useEffect(() => {
     const getHeadlines = async () => {
-
-      console.log("called get headlines")
-
       try {
         const response = await fetch(`http://localhost:8000/headlines?language=${usrlang}`);
         setArticles(await response.json());
