@@ -12,7 +12,7 @@ const CategoryFilter = ({getCategoryHeadlines}) => {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const response = await fetch('http://localhost:8000/category');
+        const response = await fetch('https://what-happens.onrender.com/category');
         setCategories(await response.json());
       } catch (error) {
         console.error(error);

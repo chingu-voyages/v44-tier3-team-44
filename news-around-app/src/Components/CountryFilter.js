@@ -12,18 +12,15 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 const CountryFilter = ({getCountryHeadlines}) => {
 
   const [countryOptions, setCountryOptions] = useState([]);
-  
-  useEffect(() => {
-    const getCountryOptions = async () => {
-      try {
-        const response = await fetch("http://localhost:8000/country");
-        setCountryOptions(await response.json());
-      } catch (error) {
-        console.error(error);
-      }
+
+  const getCountryOptions = async () => {
+    try {
+      const response = await fetch("https://what-happens.onrender.com/country");
+      setCountryOptions(await response.json());
+    } catch (error) {
+      console.error(error);
     }
-    getCountryOptions();
-  }, []);
+  } 
 
   return (
     <Menu>
