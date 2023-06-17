@@ -1,23 +1,13 @@
 import { React, useState, useEffect } from "react";
 import 
 { Button, 
-  Menu, 
-  MenuButton, 
-  MenuList, 
-  MenuItem } from '@chakra-ui/react'
+  ButtonGroup,
+  Flex
+  } from '@chakra-ui/react'
+  
 
-const CategoryFilter = () => {
-  const [allArticles, setArticles] = useState([]);
+const CategoryFilter = ({getCategoryHeadlines}) => {
   const [categories, setCategories] = useState([]);
-
-  const getCategoryHeadlines = async (category) => {
-    try {
-      const response = await fetch(`https://what-happens.onrender.com/headlines?category=${category}`);
-      setArticles(await response.json());
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   useEffect(() => {
     const getCategories = async () => {
@@ -31,24 +21,30 @@ const CategoryFilter = () => {
     getCategories();
   }, []);
 
-  useEffect(() => {
-    console.log( 'Category Articles:', allArticles ); // to write code to display the articles to the user after button is pressed
-  }, [allArticles]);
-
   return (
-    <Menu>
-      <MenuButton as={Button} color='#0050C8'>
-        Category Search
-      </MenuButton>
-      <MenuList>
+    <Flex justifyContent="center">
+      <ButtonGroup
+        spacing={{ base: 1, md: 4, lg: 6 }}
+        wrap={{ base: 'wrap', md: 'nowrap' }}
+        overflowX="auto"
+        width="100%"
+      >
         {categories.map((category, index) => (
-          <MenuItem key={index} as={Button} onClick={() => getCategoryHeadlines(category)}>
+          <Button
+            key={index}
+            color="black"
+            fontWeight="light"
+            _hover={{ backgroundColor: '#0050C8', color: 'white' }}
+            onClick={() => getCategoryHeadlines(category)}
+          >
             {category.charAt(0).toUpperCase() + category.slice(1)}
-          </MenuItem>
+          </Button>
         ))}
-      </MenuList>
-    </Menu>
+      </ButtonGroup>
+    </Flex>
   );
 };
 
 export default CategoryFilter;
+
+

@@ -4,13 +4,12 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  MenuItem
+  MenuItem,
 } from '@chakra-ui/react'
 
+import { ChevronDownIcon } from '@chakra-ui/icons';
 
-const CountryFilter = () => { 
-
-  const [allArticles, setArticles] = useState([]);
+const CountryFilter = ({getCountryHeadlines}) => {
 
   const [countryOptions, setCountryOptions] = useState([]);
 
@@ -23,31 +22,14 @@ const CountryFilter = () => {
     }
   } 
 
-  const getCountryHeadlines = async (country) => {
-    try {
-      const response = await fetch(`https://what-happens.onrender.com/headlines?country=${country}`);
-      setArticles(await response.json());
-    } catch (error) {
-      console.error(error);
-    }
-  } 
-  
-  useEffect(() => {
-    console.log( 'Country Articles:', allArticles ); // to write code to display the articles to the user after button is pressed
-  }, [allArticles]);
-
-  useEffect(() => {
-    getCountryOptions()
-  }, []); // call the Country Options automically when the App renders
-
   return (
     <Menu>
-      <MenuButton as={Button} color='#0050C8'>
-        Country Search
+      <MenuButton as={Button} color='black' fontWeight='light' _hover={{ backgroundColor: '#0050C8', color: "white" }} rightIcon={<ChevronDownIcon />}>
+        Select Country
       </MenuButton>
-      <MenuList>
+      <MenuList maxHeight='400px' overflow='scroll'>
       {Object.entries(countryOptions).map(([key, value]) => (
-        <MenuItem key={key} as={Button} onClick={() => getCountryHeadlines(value)}>
+        <MenuItem key={key} as={Button} _hover={{ backgroundColor: '#0050C8', color: "white" }} onClick={() => getCountryHeadlines(value)}>
           {key}
         </MenuItem>
       ))}
