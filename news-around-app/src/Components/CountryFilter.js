@@ -13,14 +13,17 @@ const CountryFilter = ({getCountryHeadlines}) => {
 
   const [countryOptions, setCountryOptions] = useState([]);
 
-  const getCountryOptions = async () => {
-    try {
-      const response = await fetch("https://what-happens.onrender.com/country");
-      setCountryOptions(await response.json());
-    } catch (error) {
-      console.error(error);
+  useEffect(() => {
+    const getCountryOptions = async () => {
+      try {
+        const response = await fetch("https://what-happens.onrender.com/country");
+        setCountryOptions(await response.json());
+      } catch (error) {
+        console.error(error);
+      }
     }
-  } 
+    getCountryOptions();
+  }, []);
 
   return (
     <Menu>

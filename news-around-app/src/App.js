@@ -31,7 +31,7 @@ function App() {
 
   const getCategoryHeadlines = async (category) => {
     try {
-      const response = await fetch(`http://localhost:8000/headlines?language=${usrlang}&category=${category}`);
+      const response = await fetch(`https://what-happens.onrender.com/headlines?language=${usrlang}&category=${category}`);
       setArticles(await response.json());
     } catch (error) {
       console.error(error);
@@ -54,7 +54,7 @@ function App() {
 
   const getCountryHeadlines = async (country) => {
     try {
-      const response = await fetch(`http://localhost:8000/headlines?country=${country}`);
+      const response = await fetch(`https://what-happens.onrender.com/headlines?country=${country}`);
       setArticles(await response.json());
     } catch (error) {
       console.error(error);
