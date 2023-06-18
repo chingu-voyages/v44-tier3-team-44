@@ -96,9 +96,8 @@ npm run start:frontend
 
 ## 🎨 UI/UX Design
 
-<img width="958" alt="uiux01" src="https://github.com/yulingyou/React_app_test/assets/100756965/e4e24727-15f1-4cdd-9427-7deab91fefb7">
+<img width="500" alt="截圖 2023-06-18 下午7 46 38" src="https://github.com/chingu-voyages/v44-tier3-team-44/assets/119052310/0309bbeb-f87a-4249-97d1-9ab6b7b32dae">
 
-<img width="958" alt="uiux02" src="https://github.com/yulingyou/React_app_test/assets/100756965/d86a3183-df14-42e5-be83-59da53a4de39">
 
 ## 🌍 Website
 <img width="1437" alt="homepage" src="https://github.com/yulingyou/React_app_test/assets/100756965/d6ff2c71-a8dc-4fa8-a3fd-35d35e8f3ba6">
