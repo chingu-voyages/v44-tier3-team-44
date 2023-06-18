@@ -43,7 +43,6 @@
 ├── netlify.toml
 ├── package-lock.json
 └── what-happens-app
-    ├── README.md
     ├── dataProcessing.js
     ├── package-lock.json
     ├── package.json
