@@ -27,10 +27,10 @@ Clone the project to your local machine.
 ```
 git clone git@github.com:chingu-voyages/v44-tier3-team-44.git
 ```
-And use the "cd" command to change the directory to the location where the "news-around-app" file is located.
+And use the "cd" command to change the directory to the location where the "what-happens-app" is located.
 
 ```
-cd news-around-app file
+cd what-happens-app
 ```
 
 Run npm install to install all the dependencies.
@@ -40,18 +40,11 @@ npm install
 ```
 This will install all of the dependencies required for this to run smoothly.
 
-For the server side, run npm start to the server side of the project.
-
-```
-npm start
-```
-
-For the client side, use the "cd" command to change the directory to ```src``` and run ```npm run start:frontend```   to start the client side of the project.
+Once you have "cd" to the "what-happens-app", run ```npm run start:frontend``` to start the project.
 
 ```
 npm run start:frontend   
 ```
-
 
 
 ## UI/UX Design
