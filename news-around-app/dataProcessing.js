@@ -8,9 +8,9 @@ for (let i = 0; i < allArticles.length; i++) {
   let articleTitle = allArticles[i].title.split("-")[0]
   let sourceCheck = ""
   let author = allArticles[i].author
-  console.log("Before processing news source:", allArticles[i].source)
+  // console.log("Before processing news source:", allArticles[i].source)
   let newsSource = allArticles[i].source["name"]
-  console.log("News Source:", newsSource)
+  // console.log("News Source:", newsSource)
   let url = allArticles[i].url
   // clean publishDate property
   let publishDate = allArticles[i].publishedAt.split("T")[0] 
