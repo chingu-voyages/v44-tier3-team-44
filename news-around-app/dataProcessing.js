@@ -9,6 +9,7 @@ for (let i = 0; i < allArticles.length; i++) {
   let sourceCheck = ""
   let author = allArticles[i].author
   let newsSource = allArticles[i].source["Name"]
+  console.log("News Source:", newsSource)
   let url = allArticles[i].url
   // clean publishDate property
   let publishDate = allArticles[i].publishedAt.split("T")[0] 
