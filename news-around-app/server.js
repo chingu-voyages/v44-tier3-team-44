@@ -91,7 +91,6 @@ app.get('/category', async (req, res) => {
   }
 });
 
-
 // store all the country names and the iso codes to be used on the frontend - country filter
 app.get('/country', async (req, res) => {
   const countryOptions = {

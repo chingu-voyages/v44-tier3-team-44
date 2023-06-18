@@ -8,6 +8,7 @@ for (let i = 0; i < allArticles.length; i++) {
   let articleTitle = allArticles[i].title.split("-")[0]
   let sourceCheck = ""
   let author = allArticles[i].author
+  console.log("Before processing news source:", allArticles[i].source)
   let newsSource = allArticles[i].source["Name"]
   console.log("News Source:", newsSource)
   let url = allArticles[i].url
