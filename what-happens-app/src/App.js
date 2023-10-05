@@ -7,6 +7,8 @@ import CountryFilter from './Components/CountryFilter';
 import CategoryFilter from './Components/CategoryFilter';
 import NewsArticle from './Components/NewsArticle';
 import Footer from './Components/Footer';
+import what_happens_logo from "./images/what_happens_white_logo.png";
+
 
 function App() {
 
@@ -67,7 +69,7 @@ function App() {
       <VStack ml={{ base: 0, md: '250px' }} spacing={{ base: 4, md: 4 }} 
        >
         <Box  width="20%" height="auto" maxHeight="400px" >
-          <Image src="https://media.discordapp.net/attachments/1101934137029435533/1113442514104483840/What_Happens_logo.png?width=936&height=936"
+          <Image src={what_happens_logo}
            boxSize={{ base: '150px', md: '150px' }}
            marginLeft={-16}
             objectFit="contain"
