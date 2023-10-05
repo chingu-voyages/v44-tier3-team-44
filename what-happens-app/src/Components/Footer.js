@@ -1,4 +1,5 @@
 import { Box, Grid, Image, Text, Flex } from "@chakra-ui/react";
+import what_happens_logo from "../images/what_happens_blue_logo.png";
 
 function Footer() {
   return (
@@ -41,7 +42,7 @@ function Footer() {
      </Box>
      <Flex justifyContent="center" alignItems="center" >
         <Image
-          src="https://media.discordapp.net/attachments/1106198067134337025/1117137394232217723/IMG_6087.png?width=936&height=936"
+          src={what_happens_logo}
           boxSize="100px"
           alt="Logo"
         />
