@@ -18,7 +18,7 @@ function App() {
     usrlang = usrlang.split("-")[0]
   }
   // check user's language
-  console.log(usrlang); 
+   
 
   // this part is for the newsHeadline api endoint 
   const [articles, setArticles] = useState([]) // by defaault set allArticles to be retrieved from newsHeadline as an empty array
